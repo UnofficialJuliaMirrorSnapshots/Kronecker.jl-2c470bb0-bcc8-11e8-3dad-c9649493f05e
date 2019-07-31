@@ -13,7 +13,7 @@ Given two two matrices (subtype of `AbstractArray`) `A` and `B`, one can constru
 - multiplying with a vector `v` is efficient using the [vec trick](https://en.wikipedia.org/wiki/Kronecker_product#Matrix_equations): `K * v`
 - solving systems of the form `A ⊗ B + cI`
 - working with incomplete systems using the [sampled vec trick](https://arxiv.org/pdf/1601.01507.pdf)
-- basic compatibility with higher-order Kronecker systems, e.g. `A ⊗ B ⊗ C` or `kronecker(A, 4)` which is equivalent with `A ⊗ A ⊗`A ⊗ A`
+- basic compatibility with higher-order Kronecker systems, e.g. `A ⊗ B ⊗ C` or `kronecker(A, 4)` which is equivalent with `A ⊗ A ⊗A ⊗ A`
 - [in progress] GPU compatibility!
 - [in progress] autodiff for machine learning models!
 
@@ -23,7 +23,7 @@ For basic use, see the [Jupyter notebook](notebooks/Benchmark.ipynb) with exampl
 
 Below is a [comparision](scrips/benchmarks.jl) between the native `kron` function and `Kronecker.jl` for several operations.
 
-![](benchmark.png)
+![](benchmark.svg)
 
 ## Example
 
@@ -60,3 +60,7 @@ Directly available via the Julia package manager:
 ## Issues
 
 This is very much a work in progress! Please start an issue for bugs or requests to improve functionality. Any feedback is appreciated!
+
+## Status `master` branch
+
+[![Build Status](https://travis-ci.com/MichielStock/Kronecker.jl.svg?branch=master)](https://travis-ci.com/MichielStock/Kronecker.jl) [![Coverage Status](https://coveralls.io/repos/github/MichielStock/Kronecker.jl/badge.svg?branch=master)](https://coveralls.io/github/MichielStock/Kronecker.jl?branch=master)
