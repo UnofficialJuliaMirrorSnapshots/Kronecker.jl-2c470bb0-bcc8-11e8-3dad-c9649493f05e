@@ -20,7 +20,7 @@ Given two matrices (subtype of `AbstractArray`) `A` and `B`, one can construct a
 - [in progress] GPU compatibility!
 - [in progress] Autodiff for machine learning models!
 
-For basic use, see the [Jupyter notebook](notebooks/Benchmark.ipynb) with examples. It mainly compares `Kronecker.jl` with Julia's native `kron` function.
+Read the [documentation](https://michielstock.github.io/Kronecker.jl/latest/) to get the specifics.
 
 ## Benchmarks
 
@@ -66,4 +66,5 @@ This is very much a work in progress! Please start an issue for bugs or requests
 
 ## Status `master` branch
 
-[![Build Status](https://travis-ci.com/MichielStock/Kronecker.jl.svg?branch=master)](https://travis-ci.com/MichielStock/Kronecker.jl) [![Coverage Status](https://coveralls.io/repos/github/MichielStock/Kronecker.jl/badge.svg?branch=master)](https://coveralls.io/github/MichielStock/Kronecker.jl?branch=master)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://michielstock.github.io/Kronecker.jl/latest/)[![Build Status](https://travis-ci.com/MichielStock/Kronecker.jl.svg?branch=master)](https://travis-ci.com/MichielStock/Kronecker.jl) [![Coverage Status](https://coveralls.io/repos/github/MichielStock/Kronecker.jl/badge.svg?branch=master)](https://coveralls.io/github/MichielStock/Kronecker.jl?branch=master) [![DOI](https://zenodo.org/badge/160198570.svg)](https://zenodo.org/badge/latestdoi/160198570)
+
