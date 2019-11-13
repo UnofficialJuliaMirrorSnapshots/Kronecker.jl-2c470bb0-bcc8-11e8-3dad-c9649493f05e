@@ -1,12 +1,13 @@
-Index = Union{UnitRange{I}, AbstractVector{I}} where I <: Int #TODO: make for general indices
+Index = AbstractVector{I} where I <: Integer
 
-struct IndexedKroneckerProduct <: GeneralizedKroneckerProduct
-    K::AbstractKroneckerProduct
-    p::Index
-    q::Index
-    r::Index
-    t::Index
-    function IndexedKroneckerProduct(K, p::Index, q::Index, r::Index, t::Index)
+struct IndexedKroneckerProduct{T<:Any,TK<:AbstractKroneckerProduct} <: GeneralizedKroneckerProduct{T}
+    K::TK
+    p
+    q
+    r
+    t
+    function IndexedKroneckerProduct(K::AbstractKroneckerProduct, p::Index, q::Index, r::Index,
+                            t::Index)
         if order(K) != 2
             throw(DimensionMismatch(
                 "Indexed Kronecker only implemented for second order Kronecker systems"
@@ -25,7 +26,7 @@ struct IndexedKroneckerProduct <: GeneralizedKroneckerProduct
         if !(maximum(r) ≤ n && maximum(t) ≤ l)
             throw(BoundsError("Indices exeed matrix bounds"))
         end
-        return new(K, p, q, r, t)
+        return new{eltype(K),typeof(K)}(K, p, q, r, t)
     end
 end
 
@@ -107,50 +108,6 @@ function genvectrick!(M, N, v, u, p, q, r, t)
         @simd for h in 1:f
             i, j = p[h], q[h]
             @simd for k in 1:b
-                @inbounds u[h] += S[j,k] * M[i,k]
-            end
-        end
-    end
-    return u
-end
-
-function genvectrick2!(M, N, v, u, p, q, r, t)
-    # computes N ⊗ M
-    a, b = size(M)
-    c, d = size(N)
-    e = length(v)
-    f = length(u)
-
-    u .= 0  # reset for inplace
-    if a * e + d * f < c * e + b *f
-        # compute T = VM'
-        T = zeros(eltype(v), d, a)
-        @simd for k in 1:a
-            @simd for h in 1:e
-                i, j = r[h], t[h]
-                @inbounds T[j,k] += v[h] * M[k,i]
-            end
-        end
-        @simd for k in 1:d
-            @simd for h in 1:f
-                i, j = p[h], q[h]
-                @inbounds u[h] += N[j,k] * T[k,i]
-            end
-        end
-    else
-        # compute S = NV
-        S = zeros(eltype(v), d, a)
-
-        @simd for k in 1:c
-            @simd for h in 1:e
-                i, j = r[h], t[h]
-                @inbounds S[k,j] += v[h] * N[k,j]
-            end
-        end
-
-        @simd for k in 1:b
-            @simd for h in 1:f
-                i, j = p[h], q[h]
                 @inbounds u[h] += S[j,k] * M[i,k]
             end
         end
